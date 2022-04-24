@@ -23,6 +23,9 @@
 #include "freertos/queue.h"
 #include "driver/uart.h"
 
+#include <vector>
+using std::vector;
+
 #ifndef DMX_h
 #define DMX_h
 
