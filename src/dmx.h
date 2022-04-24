@@ -37,6 +37,8 @@ class DMX
         static uint8_t Read(uint16_t channel);              // returns the dmx value for the givven address (values from 1 to 512)
 
         static void ReadAll(uint8_t * data, uint16_t start, size_t size);   // copies the defined channels from the read buffer
+    
+        static vector<uint8_t> Read_vector(uint16_t start_channel,uint16_t size); //return a vector with the defined channels
 
         static void Write(uint16_t channel, uint8_t value); // writes the dmx value to the buffer
         
