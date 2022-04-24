@@ -129,6 +129,28 @@ void DMX::ReadAll(uint8_t * data, uint16_t start, size_t size)
 #endif
 }
 
+vector<uint8_t>  DMX::Read_vector(uint16_t start_channel,uint16_t size)
+{
+    // restrict acces to dmx array to valid values
+    if(start_channel < 1)
+    {
+        start_channel = 1;
+    }
+    else if(start_channel > 512-size)
+    {
+        start_channel = 512-size;
+    }
+    // take data threadsafe from array and return
+    xSemaphoreTake(sync_dmx, portMAX_DELAY);
+
+    vector<uint8_t> tmp_dmx{};
+    for (int i = 0; i < size; ++i) {
+        tmp_dmx.push_back(dmx_data[start_channel+i]);
+    }
+    xSemaphoreGive(sync_dmx);
+    return tmp_dmx;
+}
+
 void DMX::Write(uint16_t channel, uint8_t value)
 {
     // restrict acces to dmx array to valid values
